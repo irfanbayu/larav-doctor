@@ -30,6 +30,7 @@ class RoleUsers extends Model
         'deleted_at',
     ];
 
+    //one to many
      public function users()
     {
         // 3 parameter (path model, field foreign key, field primary key from table hasMany/hasOne)

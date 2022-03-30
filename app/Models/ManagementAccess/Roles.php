@@ -29,16 +29,19 @@ class Roles extends Model
         'deleted_at',
     ];
 
-   public function role_permissions()
-    {
-        // 2 parameter (path model, field foreign key)
-        return $this->hasMany('App\Models\ManagementAccess\RolePermissions', 'permissions_id');
-    }
 
+    //one to many
     public function role_users()
     {
         // 2 parameter (path model, field foreign key)
         return $this->hasMany('App\Models\ManagementAccess\RoleUsers', 'roles_id');
     }
+
+    public function role_permissions()
+    {
+        // 2 parameter (path model, field foreign key)
+        return $this->hasMany('App\Models\ManagementAccess\RolePermissions', 'permissions_id');
+    }
+
 }
 

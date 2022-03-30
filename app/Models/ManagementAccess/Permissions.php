@@ -28,6 +28,7 @@ class Permissions extends Model
         'deleted_at',
     ];
 
+    //one to many
     public function role_permissions()
     {
         // 2 parameter (path model, field foreign key)
