@@ -2,7 +2,13 @@
 
 namespace App\Http\Requests\Consultation;
 
+use App\Models\MasterData\Consultations;
+// use Gate;
 use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Component\HttpFoundation\Response;
+
+//this rule only at update request
+use Illuminate\Validation\Rule;
 
 class UpdateConsultationsRequest extends FormRequest
 {
@@ -13,7 +19,7 @@ class UpdateConsultationsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +30,12 @@ class UpdateConsultationsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+           'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('consultations')->ignore($this->consultations),
+           ],
         ];
     }
 }
