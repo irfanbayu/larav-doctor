@@ -8,7 +8,7 @@
             <a href="{{ route('index') }}" class="flex-shrink-0 flex items-center">
               <img
                 class="h-12 lg:h-16 w-auto"
-                src="/src/assets/images/logo.png"
+                src="{{ asset('/assets/frontsite/images/logo.png') }}"
                 alt="Meet Doctor Logo"
               />
             </a>

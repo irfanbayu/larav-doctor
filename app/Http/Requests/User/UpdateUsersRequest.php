@@ -40,7 +40,7 @@ class UpdateUsersRequest extends FormRequest
                 'required',
                 'email',
                 'max:255',
-                Rule::unique('users')->ignore($this->user),
+                Rule::unique('users')->ignore($this->users),
                 //rule unique only works for other records id
             ],
             'password' => [
