@@ -19,6 +19,8 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    use SoftDeletes;
+
     protected $dates = [
         'created_at',
         'updated_at',

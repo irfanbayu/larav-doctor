@@ -23,10 +23,10 @@ Route::resource('/', LandingController::class);
 //prefix frontsite
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     // appointment page
-    Route::resource('appointment', AppointmentController::class);
+    Route::resource('appointment', AppointmentsController::class);
 
     // payment page
-    Route::resource('payment', PaymentController::class);
+    Route::resource('payment', PaymentsController::class);
 });
 
 
