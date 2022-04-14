@@ -75,7 +75,7 @@
                 <div class="flex items-center gap-4">
                   <div class="flex-shrink-0">
                     <img
-                      src="/src/assets/images/service.svg"
+                      src="{{ asset("/assets/frontsite/images/service.svg") }}"
                       alt="service icon"
                     />
                   </div>
