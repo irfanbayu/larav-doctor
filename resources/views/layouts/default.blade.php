@@ -15,10 +15,12 @@
   </head>
   <body>
 
-    @include('components.frontsite.header')
+    {{-- @include('components.frontsite.header') --}}
+    @include('sweetalert::alert')
+
         @yield('content')
 
-    @include('components.frontsite.footer')
+    {{-- @include('components.frontsite.footer') --}}
 
     @stack('before-script')
         @include('includes.frontsite.script')

@@ -5,10 +5,14 @@ use Illuminate\Support\Facades\Route;
 //frontsite
 use App\Http\Controllers\Frontsite\AppointmentsController;
 use App\Http\Controllers\Frontsite\LandingController;
-use App\Http\Controllers\Backsite\DashboardController;
+use App\Http\Controllers\Frontsite\PaymentsController;
 
 //backsite
-use App\Http\Controllers\Frontsite\PaymentsController;
+use App\Http\Controllers\Backsite\DashboardController;
+use App\Http\Controllers\Backsite\SpecialistsController;
+use App\Http\Controllers\Backsite\TypeUsersController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +43,12 @@ Route::group(['prefix' => 'backsite', 'as' => 'backsite.', 'middleware' => ['aut
 
     // dashboard page
     Route::resource('dashboard', DashboardController::class);
+
+    // type users page
+    Route::resource('type_users', TypeUsersController::class);
+
+     // type users page
+    Route::resource('specialists', SpecialistsController::class);
 
 });
 

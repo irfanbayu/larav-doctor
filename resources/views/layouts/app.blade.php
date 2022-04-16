@@ -2,7 +2,6 @@
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
-
     <head>
         @include('includes.backsite.meta')
 
@@ -21,6 +20,8 @@
     </head>
 
     <body class="vertical-layout vertical-menu 2-columns   fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
+
+        @include('sweetalert::alert')
 
         @include('components.backsite.header')
         @include('components.backsite.menu')
