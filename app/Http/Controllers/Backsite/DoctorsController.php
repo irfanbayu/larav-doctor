@@ -15,7 +15,7 @@ use App\Http\Requests\Doctor\UpdateDoctorsRequest;
 
 
 //use everything here
-// use Gate;
+use Gate;
 use Auth;
 
 //use model here
@@ -90,8 +90,9 @@ class DoctorsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Doctors $doctors)
-
     {
+        abort_if(Gate::denies('doctors_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('pages.backsite.operational.doctor.show', compact('doctors'));
     }
 
@@ -103,6 +104,8 @@ class DoctorsController extends Controller
      */
     public function edit(Doctors $doctors)
     {
+        abort_if(Gate::denies('edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         //for select2 = ascending a to z
         $specialists = Specialists::orderBy('name', 'asc')->get();
 
