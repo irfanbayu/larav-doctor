@@ -39,7 +39,7 @@ class PermissionsController extends Controller
     {
         $permissions = Permissions::orderBy('id', 'asc')->get();
 
-        return view('pages.backsite.management-access.permissions.index', compact('permissions'));
+        return view('pages.backsite.management-access.permission.index', compact('permissions')); //nama folder
     }
 
     /**

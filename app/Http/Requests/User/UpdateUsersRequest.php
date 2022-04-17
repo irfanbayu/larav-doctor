@@ -43,12 +43,12 @@ class UpdateUsersRequest extends FormRequest
                 Rule::unique('users')->ignore($this->users),
                 //rule unique only works for other records id
             ],
-            'password' => [
-                'min:8',
-                'string',
-                'max:255',
-                'mixedCase',
-            ],
+            // 'password' => [
+            //     'min:8',
+            //     'string',
+            //     'max:255',
+            //     'mixedCase',
+            // ],
             //ada validation for role this here
         ];
     }

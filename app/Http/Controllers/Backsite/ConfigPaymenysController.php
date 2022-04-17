@@ -40,7 +40,7 @@ class ConfigPaymenysController extends Controller
     {
         $config_payments = ConfigPayments::all();
 
-        return view('pages.backsite.master-data.config-payments.index', compact('config_payments'));
+        return view('pages.backsite.master-data.config-payment.index', compact('config_payments'));
     }
 
     /**
@@ -84,7 +84,7 @@ class ConfigPaymenysController extends Controller
      */
     public function edit(ConfigPayments $config_payments)
     {
-        return view('pages.backsite.master-data.config-payments.edit', compact('config_payments'));
+        return view('pages.backsite.master-data.config-payment.edit', compact('config_payments'));
     }
 
     /**

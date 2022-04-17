@@ -41,9 +41,10 @@ class ReportTransactionsController extends Controller
      */
     public function index()
     {
+        // you must add validation with condition session id user by type user doctors & patients
         $transactions = Transactions::orderBy('created_at', 'desc')->get();
 
-        return view('pages.backsite.operational.transactions.index', compact('transactions'));
+        return view('pages.backsite.operational.transaction.index', compact('transaction'));
     }
 
     /**

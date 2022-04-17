@@ -43,7 +43,7 @@ class RolesController extends Controller
     {
         $roles = Roles::orderBy('created_at', 'desc')->get();
 
-        return view('pages.backsite.management-access.roles.index', compact('roles'));
+        return view('pages.backsite.management-access.role.index', compact('roles'));
     }
 
     /**
@@ -84,7 +84,7 @@ class RolesController extends Controller
     {
         $roles->load('permissions');
 
-        return view('pages.backsite.management-access.roles.show', compact('roles'));
+        return view('pages.backsite.management-access.role.show', compact('roles'));
     }
 
     /**
@@ -98,7 +98,7 @@ class RolesController extends Controller
         $permissions = Permissions::all();
         $roles->load('permissions');
 
-        return view('pages.backsite.management-access.roles.edit', compact('roles', 'permissions'));
+        return view('pages.backsite.management-access.role.edit', compact('roles', 'permissions'));
     }
 
     /**

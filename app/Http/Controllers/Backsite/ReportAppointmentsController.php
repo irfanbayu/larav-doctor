@@ -42,9 +42,10 @@ class ReportAppointmentsController extends Controller
      */
     public function index()
     {
+        // you must add validation with condition session id user by type user doctors & patients
         $appointments = Appointments::orderBy('created_at', 'desc')->get();
 
-        return view('pages.backsite.operational.appointments.index', compact('appointments'));
+        return view('pages.backsite.operational.appointment.index', compact('appointments'));
     }
 
     /**

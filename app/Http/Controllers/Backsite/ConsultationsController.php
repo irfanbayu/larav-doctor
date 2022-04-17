@@ -41,7 +41,7 @@ class ConsultationsController extends Controller
     {
          $consultations = Consultations::orderBy('created_at', 'desc')->get();
 
-        return view('pages.backsite.master-data.consultations.index', compact('consultations'));
+        return view('pages.backsite.master-data.consultation.index', compact('consultations'));
     }
 
     /**
@@ -80,7 +80,7 @@ class ConsultationsController extends Controller
      */
     public function show(Consultations $consultations)
     {
-        return view('pages.backsite.master-data.consultations.show', compact('consultations'));
+        return view('pages.backsite.master-data.consultation.show', compact('consultations'));
     }
 
     /**
@@ -91,7 +91,7 @@ class ConsultationsController extends Controller
      */
     public function edit(Consultations $consultations)
     {
-        return view('pages.backsite.master-data.consultations.edit', compact('consultations'));
+        return view('pages.backsite.master-data.consultation.edit', compact('consultations'));
     }
 
     /**

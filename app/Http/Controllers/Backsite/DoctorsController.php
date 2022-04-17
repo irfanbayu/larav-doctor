@@ -52,7 +52,7 @@ class DoctorsController extends Controller
         //for select 2 = ascending a to z
         $specialists = Specialists::orderBy('name', 'asc')->get();
 
-        return view('pages.backsite.operational.doctors.index', compact('doctors', 'specialists'));
+        return view('pages.backsite.operational.doctor.index', compact('doctors', 'specialists'));
     }
 
     /**
@@ -92,7 +92,7 @@ class DoctorsController extends Controller
     public function show(Doctors $doctors)
 
     {
-        return view('pages.backsite.operational.doctors.show', compact('doctors'));
+        return view('pages.backsite.operational.doctor.show', compact('doctors'));
     }
 
     /**
@@ -106,7 +106,7 @@ class DoctorsController extends Controller
         //for select2 = ascending a to z
         $specialists = Specialists::orderBy('name', 'asc')->get();
 
-        return view('pages.backsite.operational.doctors.edit', compact('doctors', 'specialists'));
+        return view('pages.backsite.operational.doctor.edit', compact('doctors', 'specialists'));
     }
 
     /**

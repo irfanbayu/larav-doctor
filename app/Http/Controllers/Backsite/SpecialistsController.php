@@ -46,7 +46,7 @@ class SpecialistsController extends Controller
     {
         $specialists = Specialists::orderBy('created_at', 'desc')->get();
 
-        return view('pages.backsite.master-data.specialists.index', compact('specialists'));
+        return view('pages.backsite.master-data.specialist.index', compact('specialists'));
 
     }
 
@@ -86,7 +86,7 @@ class SpecialistsController extends Controller
      */
     public function show(Specialists $specialists)
     {
-       return view('pages.backsite.master-data.specialists.show', compact('specialists'));
+       return view('pages.backsite.master-data.specialist.show', compact('specialists'));
     }
 
     /**
@@ -97,7 +97,7 @@ class SpecialistsController extends Controller
      */
     public function edit($id)
     {
-       return view('pages.backsite.master-data.specialists.edit', compact('specialists'));
+       return view('pages.backsite.master-data.specialist.edit', compact('specialists'));
     }
 
     /**
