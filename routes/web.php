@@ -7,10 +7,19 @@ use App\Http\Controllers\Frontsite\AppointmentsController;
 use App\Http\Controllers\Frontsite\LandingController;
 use App\Http\Controllers\Frontsite\PaymentsController;
 
-//backsite
+// backsite
 use App\Http\Controllers\Backsite\DashboardController;
-use App\Http\Controllers\Backsite\SpecialistsController;
+use App\Http\Controllers\Backsite\PermissionsController;
+use App\Http\Controllers\Backsite\RolesController;
+use App\Http\Controllers\Backsite\UsersController;
 use App\Http\Controllers\Backsite\TypeUsersController;
+use App\Http\Controllers\Backsite\SpecialistsController;
+use App\Http\Controllers\Backsite\ConfigPaymentsController;
+use App\Http\Controllers\Backsite\ConsultationsController;
+use App\Http\Controllers\Backsite\DoctorsController;
+use App\Http\Controllers\Backsite\HospitalPatientsController;
+use App\Http\Controllers\Backsite\ReportAppointmentsController;
+use App\Http\Controllers\Backsite\ReportTransactionsController;
 
 
 
@@ -44,11 +53,38 @@ Route::group(['prefix' => 'backsite', 'as' => 'backsite.', 'middleware' => ['aut
     // dashboard page
     Route::resource('dashboard', DashboardController::class);
 
+    // permissions page
+    Route::resource('permissions', PermissionsController::class);
+
+    // roles page
+    Route::resource('roles', RolesController::class);
+
+    // users page
+    Route::resource('users', UsersController::class);
+
     // type users page
     Route::resource('type_users', TypeUsersController::class);
 
      // type users page
     Route::resource('specialists', SpecialistsController::class);
+
+    // config payments page
+    Route::resource('config_payments', ConfigPaymentsController::class);
+
+    // consultations page
+    Route::resource('consultations', ConsultationsController::class);
+
+    // doctors page
+    Route::resource('doctors', DoctorsController::class);
+
+    // hospital patients page
+    Route::resource('hospital_patients', HospitalPatientsController::class);
+
+    // report appointments page
+    Route::resource('appointment', ReportAppointmentsController::class);
+
+    // report transactions page
+    Route::resource('transactions', ReportTransactionsController::class);
 
 });
 
