@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Permissions extends Model
 {
     // use HasFactory;
+    use SoftDeletes;
 
      //declare table
     public $table = 'permissions';
@@ -27,6 +28,12 @@ class Permissions extends Model
         'updated_at',
         'deleted_at',
     ];
+
+     // many to many
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\ManagementAccess\Roles');
+    }
 
     //one to many
     public function role_permissions()

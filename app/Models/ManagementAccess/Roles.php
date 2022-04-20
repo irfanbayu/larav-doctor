@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Roles extends Model
 {
     // use HasFactory;
+    use SoftDeletes;
 
      //declare table
     public $table = 'roles';
@@ -29,6 +30,17 @@ class Roles extends Model
         'deleted_at',
     ];
 
+
+     // many to many
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany('App\Models\ManagementAccess\Permissions');
+    }
 
     //one to many
     public function role_users()
