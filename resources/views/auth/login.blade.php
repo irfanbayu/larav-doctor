@@ -38,6 +38,8 @@
 
               <!-- Form input -->
               <form method="POST" action="{{ route('login') }}">
+
+                {{-- token here --}}
                 @csrf
 
                 <label class="block">
@@ -49,7 +51,7 @@
 
                     @if($errors->has('email'))
                         <p class="text-red-500 mb-3 text-sm">
-                            {{ $errors->first('password') }}
+                            {{ $errors->first('email') }}
                         </p>
                     @endif
 
@@ -70,11 +72,10 @@
                 </label>
 
                 <div class="mt-10 grid gap-6">
-                  <a href="authenticated.html"
-                    class="text-center text-white text-lg font-medium bg-[#0D63F3] px-10 py-4 rounded-full"
+                  <button class="text-center text-white text-lg font-medium bg-[#0D63F3] px-10 py-4 rounded-full"
                   >
                     Sign In
-                  </a>
+                  </button>
                   <a
                     href="{{ route("register") }}"
                     class="text-center text-lg text-[#1E2B4F] font-medium bg-[#F2F6FE] px-10 py-4 rounded-full"

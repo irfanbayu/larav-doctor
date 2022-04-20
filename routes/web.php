@@ -81,7 +81,7 @@ Route::group(['prefix' => 'backsite', 'as' => 'backsite.', 'middleware' => ['aut
     Route::resource('hospital_patients', HospitalPatientsController::class);
 
     // report appointments page
-    Route::resource('appointment', ReportAppointmentsController::class);
+    Route::resource('appointments', ReportAppointmentsController::class);
 
     // report transactions page
     Route::resource('transactions', ReportTransactionsController::class);
