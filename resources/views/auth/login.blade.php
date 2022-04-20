@@ -37,7 +37,7 @@
             @endif
 
               <!-- Form input -->
-              <form method="POST" action="{{ route('login') }}"> class="grid gap-6">
+              <form method="POST" action="{{ route('login') }}">
                 @csrf
 
                 <label class="block">

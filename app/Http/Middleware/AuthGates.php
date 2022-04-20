@@ -20,7 +20,7 @@ class AuthGates
     public function handle(Request $request, Closure $next)
     {
         // get all user by session browser
-        $users = \Auth::users();
+        $users = \Auth::user();
 
         // checking validation middleware
         // system on or not
