@@ -94,6 +94,10 @@ class DoctorsController extends Controller
         abort_if(Gate::denies('doctors_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('pages.backsite.operational.doctor.show', compact('doctors'));
+
+        // for select 2
+        $specialists = Specialists::orderBy('name', 'asc')->get();
+        return view('pages.backsite.operational.doctors.index', compact('doctors', 'specialists'));
     }
 
     /**
