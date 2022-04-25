@@ -127,8 +127,6 @@
             </a>
           <!-- End Card -->
           @empty
-          {{-- empty --}}
-          @endforelse
         </div>
       </section>
     <!-- End Popular Categories -->
@@ -141,39 +139,40 @@
 
                 <!-- Card -->
                 <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 lg:gap-10 mt-10">
+                     @forelse($doctor as $key => $doctor_item)
 
-                    @forelse($doctor as $key => $doctor_item)
+                        <a href="{{ route('appointment.doctor', $doctor_item->id) }}" class="group">
+                            <div class="relative z-10 w-full h-[350px] rounded-2xl overflow-hidden">
+                                <img src="{{ url(Storage::url($doctor_item->photo)) }}" class="w-full h-full bg-center bg-no-repeat object-cover object-center" alt="{{ $doctor_item->name ?? '' }}">
+                                <div class="opacity-0 group-hover:opacity-100 transition-all ease-in absolute inset-0 bg-[#0D63F3] bg-opacity-70 flex justify-center items-center">
+                                    <span class="text-[#0D63F3] font-medium bg-white rounded-full px-8 py-3">Book Now</span>
+                                </div>
+                            </div>
 
-                    <a href="{{ route('appointment.doctor', $doctor_item->id) }}" class="group">
-                        <div class="relative z-10 w-full h-[350px] rounded-2xl overflow-hidden">
-                            <img src="{{ url(Storage::url($doctor_item->photo)) }}" class="w-full h-full bg-center bg-no-repeat object-cover object-center" alt="{{ $doctor_item->name ?? '' }}">
-                            <div class="opacity-0 group-hover:opacity-100 transition-all ease-in absolute inset-0 bg-[#0D63F3] bg-opacity-70 flex justify-center items-center">
-                                <span class="text-[#0D63F3] font-medium bg-white rounded-full px-8 py-3">Book Now</span>
+                            <div class="flex items-center justify-between mt-5">
+                                <div>
+                                    <div class="text-[#1E2B4F] text-lg font-semibold">{{ $doctor_item->name ?? '' }}</div>
+                                    <div class="text-[#AFAEC3] mt-1">{{ $doctor_item->specialist->name ?? '' }}</div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <img src="{{ asset('/assets/frontsite/images/star.svg') }}" alt="Star">
+                                    <span class="block text-[#1E2B4F] font-medium">4.5</span>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="flex items-center justify-between mt-5">
-                            <div>
-                                <div class="text-[#1E2B4F] text-lg font-semibold">{{ $doctor_item->name ?? '' }}</div>
-                                <div class="text-[#AFAEC3] mt-1">{{ $doctor_item->specialist->name ?? '' }}</div>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <img src="{{ asset('/assets/frontsite/images/star.svg') }}" alt="Star">
-                                <span class="block text-[#1E2B4F] font-medium">4.5</span>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
 
                     @empty
 
-                    {{-- empty --}}
+                        {{-- empty --}}
 
-                        @endforelse
+                    @endforelse
+
                 </div>
                 <!-- End Card -->
             </div>
         </section>
         <!-- End Best Doctors -->
+
 
     </main>
     <<!-- End Content -->
