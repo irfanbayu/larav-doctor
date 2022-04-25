@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Backsite;
 
+use App\Http\Controllers\Controller;
+
+
 // use library here
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -50,7 +53,7 @@ class UsersController extends Controller
         $type_users = TypeUsers::orderBy('name', 'asc')->get();
         $roles = Roles::all()->pluck('title', 'id');
 
-        return view('pages.backsite.management-access.user.index', compact('user', 'roles', 'type_users'));
+        return view('pages.backsite.management-access.user.index', compact('users', 'roles', 'type_users'));
     }
 
     /**

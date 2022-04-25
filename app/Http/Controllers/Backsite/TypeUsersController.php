@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backsite;
 
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -40,9 +41,9 @@ class TypeUsersController extends Controller
 
         // orderBy('created_at', 'desc')->limit(5)->get();
 
-        dd($type_users);
+        // dd($type_users);
 
-        return view('backsite.type_users.index', compact('type_users'));
+        return view('pages.backsite.management-access.type-user.index', compact('type_users'));
     }
 
     /**
