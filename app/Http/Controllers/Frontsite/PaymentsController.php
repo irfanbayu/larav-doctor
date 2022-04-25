@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontsite;
 use App\Http\Controllers\Controller;
 
 //use library here
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -47,7 +48,7 @@ class PaymentsController extends Controller
     public function index()
     {
         return view('pages.frontsite.payment.index');
-
+        return abort(404);
     }
 
     /**
@@ -69,7 +70,41 @@ class PaymentsController extends Controller
     public function store(Request $request)
     {
          return abort(404);
+         $data = $request->all();
 
+         $appointment = Appointments::where('id', $data['appointments_id'])->first();
+         $config_payment = ConfigPayments::first();
+
+         // set transaction
+         $specialist_fee = $appointment->doctors->specialists->price;
+         $doctor_fee = $appointment->doctors->fee;
+         $hospital_fee = $config_payment->fee;
+         $hospital_vat = $config_payment->vat;
+
+         // total
+         $total = $specialist_fee + $doctor_fee + $hospital_fee;
+
+         // total with vat and grand total
+         $total_with_vat = ($total * $hospital_vat) / 100;
+         $grand_total = $total + $total_with_vat;
+
+         // save to database
+        $transaction = new Transactions;
+        $transaction->appointments_id = $appointment['id'];
+        $transaction->fee_doctor = $doctor_fee;
+        $transaction->fee_specialist = $specialist_fee;
+        $transaction->fee_hospital = $hospital_fee;
+        $transaction->sub_total = $total;
+        $transaction->vat = $hospital_vat;
+        $transaction->total = $grand_total;
+        $transaction->save();
+
+        // update status appointment
+        $appointment = Appointments::find($appointment->id);
+        $appointment->status = 1; // set to completed payment
+        $appointment->save();
+
+        return redirect()->route('payment.success');
     }
 
     /**
@@ -119,5 +154,32 @@ class PaymentsController extends Controller
     {
         return abort(404);
 
+    }
+
+
+    //custom
+
+     public function payment($id)
+    {
+        $appointment = Appointments::where('id', $id)->first();
+        $config_payment = ConfigPayments::first();
+
+        // set value
+        $specialist_fee = $appointment->doctors->specialists->price;
+        $doctor_fee = $appointment->doctors->fee;
+        $hospital_fee = $config_payment->fee;
+        $hospital_vat = $config_payment->vat;
+
+        $total = $specialist_fee + $doctor_fee + $hospital_fee;
+
+        $total_with_vat = ($total * $hospital_vat) / 100;
+        $grand_total = $total + $total_with_vat;
+
+        return view('pages.frontsite.payment.index', compact('appointments', 'config_payments', 'total_with_vat', 'grand_total', 'id'));
+    }
+
+    public function success()
+    {
+        return view('pages.frontsite.success.payment-success');
     }
 }
