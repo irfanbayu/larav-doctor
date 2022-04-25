@@ -51,7 +51,7 @@ class Appointments extends Model
     public function users()
     {
         // 3 parameter (path model, field foreign key, field primary key from table hasMany/hasOne)
-        return $this->belongsTo('App\Models\Users', 'users_id','id');
+        return $this->belongsTo('App\Models\User', 'users_id','id');
     }
 
      //one to one

@@ -14,9 +14,9 @@ class AddForeignKeysToRolePermissionsTable extends Migration
     public function up()
     {
         Schema::table('role_permissions', function (Blueprint $table) {
-           $table->foreign('permissions_id', 'fk_permissions_roles_to_permissions')
+           $table->foreign('permissions_id', 'fk_role_permissions_to_permissions')
             ->references('id')->on('permissions')->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->foreign('roles_id', 'fk_permissions_roles_to_roles')
+            $table->foreign('roles_id', 'fk_role_permissions_to_roles')
             ->references('id')->on('roles')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }
@@ -29,8 +29,8 @@ class AddForeignKeysToRolePermissionsTable extends Migration
     public function down()
     {
         Schema::table('role_permissions', function (Blueprint $table) {
-            $table->dropForeign('fk_permissions_roles_to_permissions');
-            $table->dropForeign('fk_permissions_roles_to_roles');
+            $table->dropForeign('fk_role_permissions_to_permissions');
+            $table->dropForeign('fk_role_permissions_to_roles');
         });
     }
 }
