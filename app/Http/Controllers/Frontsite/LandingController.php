@@ -31,11 +31,10 @@ class LandingController extends Controller
      */
     public function index()
     {
-        return view('pages.frontsite.landing-page.index');
         $specialist =  Specialists::orderBy('name', 'desc')->limit(5)->get();
         $doctor = Doctors::orderBy('created_at', 'desc')->limit(4)->get();
 
-        return view('pages.frontsite.landing-page.index', compact('specialists', 'doctors'));
+        return view('pages.frontsite.landing-page.index', compact('doctor', 'specialist',));
     }
 
     /**

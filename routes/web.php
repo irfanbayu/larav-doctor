@@ -39,10 +39,14 @@ Route::resource('/', LandingController::class);
 
 //prefix frontsite
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
+
     // appointment page
+    Route::get('/appointment/doctor/{id}', [AppointmentsController::class . 'appointment'])->name('appointment.doctor');
     Route::resource('appointment', AppointmentsController::class);
 
     // payment page
+    Route::get('payment/success', [PaymentsController::class, 'success'])->name('payment.success');
+    Route::get('payment/appointment/{id}', [PaymentsController::class, 'payment'])->name('payment.appointment');
     Route::resource('payment', PaymentsController::class);
 });
 

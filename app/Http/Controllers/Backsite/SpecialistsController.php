@@ -15,7 +15,7 @@ use App\Http\Requests\Specialist\UpdateSpecialistsRequest;
 
 
 //use everything here
-// use Gate;
+use Gate;
 // use File;
 use Auth;
 
@@ -44,6 +44,8 @@ class SpecialistsController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('specialist_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $specialists = Specialists::orderBy('created_at', 'desc')->get();
 
         return view('pages.backsite.master-data.specialist.index', compact('specialists'));
@@ -86,7 +88,9 @@ class SpecialistsController extends Controller
      */
     public function show(Specialists $specialists)
     {
-       return view('pages.backsite.master-data.specialist.show', compact('specialists'));
+        abort_if(Gate::denies('specialist_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('pages.backsite.master-data.specialist.show', compact('specialists'));
     }
 
     /**
@@ -97,7 +101,9 @@ class SpecialistsController extends Controller
      */
     public function edit($id)
     {
-       return view('pages.backsite.master-data.specialist.edit', compact('specialists'));
+        abort_if(Gate::denies('specialist_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('pages.backsite.master-data.specialist.edit', compact('specialists'));
     }
 
     /**
@@ -127,7 +133,9 @@ class SpecialistsController extends Controller
      */
     public function destroy(Specialists $specialists)
     {
-        $specialists->delete();
+        abort_if(Gate::denies('specialist_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $specialists->forceDelete();
 
         alert()->success('Success Message', 'Data has been deleted!');
         return back();
