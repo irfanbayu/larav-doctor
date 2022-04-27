@@ -24,7 +24,7 @@ class Appointments extends Model
     //declare fillable
     protected $fillable = [
         'doctors_id',
-        'users_id',
+        'user_id',
         'consultations_id',
         'level',
         'date',
@@ -51,7 +51,7 @@ class Appointments extends Model
     public function users()
     {
         // 3 parameter (path model, field foreign key, field primary key from table hasMany/hasOne)
-        return $this->belongsTo('App\Models\User', 'users_id','id');
+        return $this->belongsTo('App\Models\User', 'user_id','id'); //users_id
     }
 
      //one to one

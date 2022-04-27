@@ -24,7 +24,7 @@ class DetailUsers extends Model
 
     //declare fillable
     protected $fillable = [
-        'users_id',
+        'user_id',
         'type_users_id',
         'contact',
         'address',
@@ -46,14 +46,14 @@ class DetailUsers extends Model
     public function users()
     {
         // 3 parameter (path model, field foreign key, field primary key from table hasMany)
-        return $this->belongsTo('App\Models\User', 'users_id', 'id');
+        return $this->belongsTo('App\Models\User', 'user_id', 'id'); //users_id
     }
 
 
      //one to many
-    public function role_users()
+    public function roles_user()
     {
         // 3 parameter (path model, field foreign key, field primary key from table hasMany)
-        return $this->hasMany('App\Models\ManagementAccess\RoleUsers', 'users_id');
+        return $this->hasMany('App\Models\ManagementAccess\RoleUsers', 'user_id'); //users_id
     }
 }

@@ -13,10 +13,10 @@ class AddForeignKeysToRoleUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('role_users', function (Blueprint $table) {
-            $table->foreign('roles_id', 'fk_role_users_to_roles')
+        Schema::table('roles_user', function (Blueprint $table) {
+            $table->foreign('roles_id', 'fk_roles_user_to_roles')
             ->references('id')->on('roles')->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->foreign('users_id', 'fk_role_users_to_users')
+            $table->foreign('user_id', 'fk_roles_user_to_users')
             ->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }
@@ -28,9 +28,9 @@ class AddForeignKeysToRoleUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('role_users', function (Blueprint $table) {
-            $table->dropForeign('fk_role_users_to_roles');
-            $table->dropForeign('fk_role_users_to_users');
+        Schema::table('roles_user', function (Blueprint $table) {
+            $table->dropForeign('fk_roles_user_to_roles');
+            $table->dropForeign('fk_roles_user_to_users');
         });
     }
 }

@@ -88,7 +88,7 @@ class UsersController extends Controller
 
         // save to detail user, to set type user
         $detail_user = new DetailUsers;
-        $detail_user->users_id = $user->id;
+        $detail_user->user_id = $user->id; //users_id
         $detail_user->type_users_id = $request['type_users_id'];
         $detail_user->save();
 

@@ -14,7 +14,7 @@ class RoleUsers extends Model
     use SoftDeletes;
 
      //declare table
-    public $table = 'role_users';
+    public $table = 'roles_user';
 
     //this field must type date yyyy-mm-dd hh:mm:ss
     protected $dates = [
@@ -26,7 +26,7 @@ class RoleUsers extends Model
     //declare fillable
     protected $fillable = [
         'roles_id',
-        'users_id',
+        'user_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -36,7 +36,7 @@ class RoleUsers extends Model
      public function users()
     {
         // 3 parameter (path model, field foreign key, field primary key from table hasMany/hasOne)
-        return $this->belongsTo('App\Models\User', 'users_id','id');
+        return $this->belongsTo('App\Models\User', 'user_id','id');
     }
 
       public function roles()

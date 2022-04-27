@@ -18,7 +18,7 @@ class DetailUsersSeeder extends Seeder
     {
         $detail_user = [
             [
-                'users_id'        => 1,
+                'user_id'        => 1,
                 'type_users_id'   => 1,
                 'contact'        => NULL,
                 'address'        => NULL,

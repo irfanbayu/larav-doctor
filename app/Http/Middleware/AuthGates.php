@@ -20,31 +20,35 @@ class AuthGates
     public function handle(Request $request, Closure $next)
     {
         // get all user by session browser
-        $users = \Auth::user();
+        $user = \Auth::user();
 
         // checking validation middleware
         // system on or not
         // user active or not
-        if(!app()->runningInConsole() && $users){
-            $roles = Roles::with('permissions')->get();
-            $permissionArray = [];
+        if(!app()->runningInConsole() && $user)
+        {
+            $roles              = Roles::with('permissions')->get();
+            $permissionsArray   = [];
 
             // nested loop
-            // looping for role (where table role)
+            // looping for role ( where table role )
             foreach ($roles as $role){
-                //looping for permission (where table role_permissions)
+                // looping for permission ( where table permnission_role )
                 foreach ($role->permissions as $permissions){
-                    $permissionArray[$permissions->title][] = $role->id;
+                    $permissionsArray[$permissions->title][] = $role->id;
                 }
             }
+
             // check user role
-            foreach ($permissionArray as $title => $roles){
-                Gate::define($title, function (\App\Model\User $user)
+            foreach ($permissionsArray as $title => $roles) {
+                Gate::define($title, function(\App\Models\User $user)
                 use ($roles) {
-                    return count (array_intersect($user->role->pluck('id')->toArray(), $roles)) > 0;
+                    return count(array_intersect($user->roles->pluck('id')
+                    ->toArray(), $roles)) > 0;
                 });
             }
         }
+
         // return all middleware
         return $next($request);
     }

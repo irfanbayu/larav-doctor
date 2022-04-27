@@ -97,7 +97,7 @@ class DoctorsController extends Controller
 
         // for select 2
         $specialists = Specialists::orderBy('name', 'asc')->get();
-        return view('pages.backsite.operational.doctors.index', compact('doctors', 'specialists'));
+        return view('pages.backsite.operational.doctor.index', compact('doctors', 'specialists'));
     }
 
     /**

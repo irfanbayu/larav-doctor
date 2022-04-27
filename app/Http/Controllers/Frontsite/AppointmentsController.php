@@ -72,7 +72,7 @@ class AppointmentsController extends Controller
 
         $appointment = new Appointments;
         $appointment->doctors_id = $data['doctors_id'];
-        $appointment->users_id = Auth::user()->id;
+        $appointment->user_id = Auth::user()->id; //users_id
         $appointment->consultatations_id = $data['consultations_id'];
         $appointment->level = $data['level_id'];
         $appointment->date = $data['date'];

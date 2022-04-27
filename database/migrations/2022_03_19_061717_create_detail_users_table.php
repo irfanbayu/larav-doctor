@@ -15,7 +15,7 @@ class CreateDetailUsersTable extends Migration
     {
         Schema::create('detail_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('users_id')->nullable()->index('fk_detail_users_to_users');
+            $table->foreignId('user_id')->nullable()->index('fk_detail_users_to_users');
             $table->foreignId('type_users_id')->nullable()->index('fk_detail_users_to_type_users');
             $table->string('contact')->nullable();
             $table->longText('address')->nullable();

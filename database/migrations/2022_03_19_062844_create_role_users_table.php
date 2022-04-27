@@ -13,10 +13,10 @@ class CreateRoleUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('role_users', function (Blueprint $table) {
+        Schema::create('roles_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('roles_id')->nullable()->index('fk_role_users_to_roles');
-            $table->foreignId('users_id')->nullable()->index('fk_role_users_to_users');
+            $table->foreignId('roles_id')->nullable()->index('fk_roles_user_to_roles');
+            $table->foreignId('user_id')->nullable()->index('fk_roles_user_to_users');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +29,6 @@ class CreateRoleUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_users');
+        Schema::dropIfExists('roles_user');
     }
 }

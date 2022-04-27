@@ -80,18 +80,18 @@ class User extends Authenticatable
      public function appointments()
     {
         // 2 parameter (path model, field foreign key)
-        return $this->hasMany('App\Models\Operational\Appointments', 'users_id');
+        return $this->hasMany('App\Models\Operational\Appointments', 'user_id'); //users_id
     }
 
      public function detail_users()
     {
         //2 parameter (path model, field foreign key)
-        return $this->hasOne('App\Models\ManagementAccess\DetailUsers', 'users_id');
+        return $this->hasOne('App\Models\ManagementAccess\DetailUsers', 'user_id');
     }
 
-    public function role_users()
+    public function roles_user()
     {
         // 2 parameter (path model, field foreign key)
-        return $this->hasMany('App\Models\ManagementAccess\RoleUsers', 'users_id');
+        return $this->hasMany('App\Models\ManagementAccess\RoleUsers', 'user_id');
     }
 }

@@ -43,7 +43,7 @@ class Roles extends Model
     }
 
     //one to many
-    public function role_users()
+    public function roles_user()
     {
         // 2 parameter (path model, field foreign key)
         return $this->hasMany('App\Models\ManagementAccess\RoleUsers', 'roles_id');
