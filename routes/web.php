@@ -14,7 +14,8 @@ use App\Http\Controllers\Backsite\RolesController;
 use App\Http\Controllers\Backsite\UsersController;
 use App\Http\Controllers\Backsite\TypeUsersController;
 use App\Http\Controllers\Backsite\SpecialistsController;
-use App\Http\Controllers\Backsite\ConfigPaymentsController;
+// use App\Http\Controllers\Backsite\ConfigPaymentsController;
+use App\Http\Controllers\Backsite\ConfigPaymenysController;
 use App\Http\Controllers\Backsite\ConsultationsController;
 use App\Http\Controllers\Backsite\DoctorsController;
 use App\Http\Controllers\Backsite\HospitalPatientsController;
@@ -73,7 +74,7 @@ Route::group(['prefix' => 'backsite', 'as' => 'backsite.', 'middleware' => ['aut
     Route::resource('specialists', SpecialistsController::class);
 
     // config payments page
-    Route::resource('config_payments', ConfigPaymentsController::class);
+    Route::resource('config_payments', ConfigPaymenysController::class);
 
     // consultations page
     Route::resource('consultations', ConsultationsController::class);

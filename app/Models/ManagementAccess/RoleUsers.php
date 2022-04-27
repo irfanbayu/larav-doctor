@@ -11,6 +11,8 @@ class RoleUsers extends Model
 {
     // use HasFactory;
 
+    use SoftDeletes;
+
      //declare table
     public $table = 'role_users';
 
