@@ -17,6 +17,7 @@ class UpdateDoctorsRequest extends FormRequest
     public function authorize()
     {
         abort_if(Gate::denies('doctor_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return true;
     }
 
@@ -28,21 +29,21 @@ class UpdateDoctorsRequest extends FormRequest
     public function rules()
     {
         return [
-           'specialists_id' => [
+            'specialists_id' => [
                 'required',
                 'integer',
             ],
-             'name' => [
+            'name' => [
                 'required',
                 'string',
                 'max:255',
             ],
-             'fee' => [
+            'fee' => [
                 'required',
                 'string',
                 'max:255',
             ],
-             'photo' => [
+            'photo' => [
                 'nullable',
                 'string',
                 'max:10000',

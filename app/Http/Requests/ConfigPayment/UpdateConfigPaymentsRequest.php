@@ -3,7 +3,7 @@
 namespace App\Http\Requests\ConfigPayment;
 
 use App\Models\MasterData\ConfigPayment;
-// use Gate;
+use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,6 +16,7 @@ class UpdateConfigPaymentsRequest extends FormRequest
      */
     public function authorize()
     {
+        abort_if(Gate::denies('config_payment_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
@@ -33,7 +34,7 @@ class UpdateConfigPaymentsRequest extends FormRequest
                 'string',
                 'max:255',
             ],
-             'vat' => [
+            'vat' => [
                 'required',
                 'string',
                 'max:255',

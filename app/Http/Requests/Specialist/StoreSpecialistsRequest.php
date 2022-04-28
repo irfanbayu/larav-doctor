@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Specialist;
 
 use App\Models\MasterData\Specialists;
-// use Gate;
+use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,6 +17,7 @@ class StoreSpecialistsRequest extends FormRequest
     public function authorize()
     {
         abort_if(Gate::denies('specialist_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return true;
     }
 
@@ -28,13 +29,13 @@ class StoreSpecialistsRequest extends FormRequest
     public function rules()
     {
         return [
-              'name' => [
+            'name' => [
                 'required',
                 'string',
                 'max:255',
                 'unique:specialists'
             ],
-             'price' => [
+            'price' => [
                 'required',
                 'string',
                 'max:255',

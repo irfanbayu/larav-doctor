@@ -48,6 +48,6 @@ class StoreUsersRequest extends FormRequest
                 'mixedCase',
             ],
             //ada validation for role this here
-         ];
+        ];
     }
 }

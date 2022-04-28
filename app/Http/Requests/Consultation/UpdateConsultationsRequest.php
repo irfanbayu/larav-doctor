@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Consultation;
 
 use App\Models\MasterData\Consultations;
-// use Gate;
+use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,6 +19,8 @@ class UpdateConsultationsRequest extends FormRequest
      */
     public function authorize()
     {
+        abort_if(Gate::denies('consultation_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return true;
     }
 
@@ -30,12 +32,12 @@ class UpdateConsultationsRequest extends FormRequest
     public function rules()
     {
         return [
-           'name' => [
+        'name' => [
                 'required',
                 'string',
                 'max:255',
                 Rule::unique('consultations')->ignore($this->consultations),
-           ],
+            ],
         ];
     }
 }
