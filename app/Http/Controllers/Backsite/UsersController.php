@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 // request
-use App\Http\Requests\User\StoreUserRequest;
+// use App\Http\Requests\User\StoreUserRequest;
+// use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\StoreUsersRequest;
-use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UpdateUsersRequest;
 
 // use everything here
@@ -75,13 +75,13 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUsersRequest $request_user, Request $request)
+    public function store(StoreUsersRequest $request_user)
     {
         // get all request from frontsite
         $data = $request_user->all();
 
         // hash password
-        $data['password'] = Hash::make($data['password']);
+        $data['password'] = Hash::make($data['email']);
 
         // store to database
         $user = User::create($data);
@@ -92,7 +92,7 @@ class UsersController extends Controller
         // save to detail user, to set type user
         $detail_user = new DetailUsers;
         $detail_user->user_id = $user->id; //users_id
-        $detail_user->type_users_id = $request['type_users_id'];
+        $detail_user->type_users_id = $request_user['type_users_id'];
         $detail_user->save();
 
         alert()->success('Success Message', 'Successfully added new user');
@@ -138,7 +138,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUsersRequest $request_user, Request $request, User $user)
+    public function update(UpdateUsersRequest $request_user, User $user)
     {
         // get all request from frontsite
         $data = $request_user->all();
@@ -151,7 +151,7 @@ class UsersController extends Controller
 
         // save to detail user , to set type user
         $detail_user = DetailUsers::find($user['id']);
-        $detail_user->type_users_id = $request['type_users_id'];
+        $detail_user->type_users_id = $request_user['type_users_id'];
         $detail_user->save();
 
         alert()->success('Success Message', 'Successfully updated user');

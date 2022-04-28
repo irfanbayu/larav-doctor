@@ -64,7 +64,7 @@
                                     <div class="card-content collapse hide">
                                         <div class="card-body card-dashboard">
 
-                                            <form class="form form-horizontal" action="{{ route('backsite.user.store') }}" method="POST" enctype="multipart/form-data">
+                                            <form class="form form-horizontal" action="{{ route('backsite.users.store') }}" method="POST" enctype="multipart/form-data">
 
                                                 @csrf
 
@@ -95,7 +95,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group row {{ $errors->has('role') ? 'has-error' : '' }}">
+                                                    <div class="form-group row {{ $errors->has('roles') ? 'has-error' : '' }}">
                                                         <label class="col-md-3 label-control">Role <code style="color:red;">required</code></label>
                                                         <div class="col-md-9 mx-auto">
                                                             <label for="role">
@@ -103,8 +103,8 @@
                                                                 <span class="btn btn-warning btn-sm deselect-all">{{ 'Delete all' }}</span>
                                                             </label>
 
-                                                            <select name="role[]"
-                                                                    id="role"
+                                                            <select name="roles[]"
+                                                                    id="roles"
                                                                     class="form-control select2-full-bg"
                                                                     data-bgcolor="teal" data-bgcolor-variation="lighten-3" data-text-color="black"
                                                                     multiple="multiple" required>
@@ -113,26 +113,26 @@
                                                                 @endforeach
                                                             </select>
 
-                                                            @if($errors->has('role'))
-                                                                <p style="font-style: bold; color: red;">{{ $errors->first('role') }}</p>
+                                                            @if($errors->has('roles'))
+                                                                <p style="font-style: bold; color: red;">{{ $errors->first('roles') }}</p>
                                                             @endif
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group row {{ $errors->has('type_user_id') ? 'has-error' : '' }}">
+                                                    <div class="form-group row {{ $errors->has('type_users_id') ? 'has-error' : '' }}">
                                                         <label class="col-md-3 label-control">Type User <code style="color:red;">required</code></label>
                                                         <div class="col-md-9 mx-auto">
-                                                            <select name="type_user_id"
-                                                                    id="type_user_id"
+                                                            <select name="type_users_id"
+                                                                    id="type_users_id"
                                                                     class="form-control select2" required>
                                                                     <option value="{{ '' }}" disabled selected>Choose</option>
-                                                                @foreach($type_user as $key => $type_user_item)
+                                                                @foreach($type_users as $key => $type_user_item)
                                                                     <option value="{{ $type_user_item->id }}">{{ $type_user_item->name }}</option>
                                                                 @endforeach
                                                             </select>
 
-                                                            @if($errors->has('type_user_id'))
-                                                                <p style="font-style: bold; color: red;">{{ $errors->first('type_user_id') }}</p>
+                                                            @if($errors->has('type_users_id'))
+                                                                <p style="font-style: bold; color: red;">{{ $errors->first('type_users_id') }}</p>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -192,18 +192,18 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @forelse($user as $key => $user_item)
+                                                        @forelse($users as $key => $user_item)
                                                             <tr data-entry-id="{{ $user_item->id }}">
                                                                 <td>{{ date("d/m/Y H:i:s",strtotime($user_item->created_at)) ?? '' }}</td>
                                                                 <td>{{ $user_item->name ?? '' }}</td>
                                                                 <td>{{ $user_item->email ?? '' }}</td>
                                                                 <td style="width:200px;">
-                                                                    @foreach($user_item->role as $key => $item)
+                                                                    @foreach($user_item->roles as $key => $item)
                                                                         <span class="badge bg-yellow text-dark mr-1 mb-1">{{ $item->title }}</span>
                                                                     @endforeach
                                                                 </td>
                                                                 <td style="width:200px;">
-                                                                    <span class="badge bg-success mr-1 mb-1">{{ $user_item->detail_user->type_user->name ?? '' }}</span>
+                                                                    <span class="badge bg-success mr-1 mb-1">{{ $user_item->detail_users->type_users->name ?? '' }}</span>
                                                                 </td>
                                                                 <td class="text-center">
 
@@ -212,7 +212,7 @@
                                                                         <div class="dropdown-menu">
                                                                             @can('user_show')
                                                                                 <a href="#mymodal"
-                                                                                    data-remote="{{ route('backsite.user.show', $user_item->id) }}"
+                                                                                    data-remote="{{ route('backsite.users.show', $user_item->id) }}"
                                                                                     data-toggle="modal"
                                                                                     data-target="#mymodal"
                                                                                     data-title="User Detail"
@@ -221,12 +221,12 @@
                                                                                 </a>
                                                                             @endcan
                                                                             @can('user_edit')
-                                                                                <a class="dropdown-item" href="{{ route('backsite.user.edit', $user_item->id) }}">
+                                                                                <a class="dropdown-item" href="{{ route('backsite.users.edit', $user_item->id) }}">
                                                                                     Edit
                                                                                 </a>
                                                                             @endcan
                                                                             @can('user_delete')
-                                                                                <form action="{{ route('backsite.user.destroy', $user_item->id) }}" method="POST" onsubmit="return confirm('Are you sure want to delete this data ?');">
+                                                                                <form action="{{ route('backsite.users.destroy', $user_item->id) }}" method="POST" onsubmit="return confirm('Are you sure want to delete this data ?');">
                                                                                     <input type="hidden" name="_method" value="DELETE">
                                                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                                     <input type="submit" class="dropdown-item" value="Delete">

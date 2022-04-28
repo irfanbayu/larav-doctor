@@ -10,7 +10,7 @@
     <tr>
         <th>Role</th>
         <td>
-            @foreach($user->role as $id => $role)
+            @foreach($user->roles as $id => $role)
                 <span class="badge bg-yellow text-dark mr-1 mb-1">{{ isset($role->title) ? $role->title : 'N/A' }}</span>
             @endforeach
         </td>
@@ -18,7 +18,7 @@
     <tr>
         <th>Type User</th>
         <td>
-            <span class="badge bg-success mr-1 mb-1">{{ isset($user->detail_user->type_user->name) ? $user->detail_user->type_user->name : 'N/A' }}</span>
+            <span class="badge bg-success mr-1 mb-1">{{ isset($user->detail_users->type_users->name) ? $user->detail_users->type_users->name : 'N/A' }}</span>
         </td>
     </tr>
 </table>

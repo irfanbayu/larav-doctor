@@ -61,7 +61,7 @@
                                         <div class="card-text">
                                             <p>Please complete the input <code>required</code>, before you click the submit button.</p>
                                         </div>
-                                        <form class="form form-horizontal" action="{{ route("backsite.user.update", [$user->id]) }}" method="POST" enctype="multipart/form-data">
+                                        <form class="form form-horizontal" action="{{ route("backsite.users.update", [$user->id]) }}" method="POST" enctype="multipart/form-data">
 
                                                 @method('PUT')
                                                 @csrf
@@ -105,8 +105,8 @@
                                                                     class="form-control select2-full-bg"
                                                                     data-bgcolor="teal" data-bgcolor-variation="lighten-3" data-text-color="black"
                                                                     multiple="multiple" required>
-                                                                @foreach($role as $id => $role)
-                                                                    <option value="{{ $id }}" {{ (in_array($id, old('role', [])) || isset($user) && $user->role->contains($id)) ? 'selected' : '' }}>{{ $role }}</option>
+                                                                @foreach($roles as $id => $role)
+                                                                    <option value="{{ $id }}" {{ (in_array($id, old('roles', [])) || isset($user) && $user->roles->contains($id)) ? 'selected' : '' }}>{{ $role }}</option>
                                                                 @endforeach
                                                             </select>
 
@@ -116,20 +116,20 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group row {{ $errors->has('type_user_id') ? 'has-error' : '' }}">
+                                                    <div class="form-group row {{ $errors->has('type_users_id') ? 'has-error' : '' }}">
                                                         <label class="col-md-3 label-control">Type User <code style="color:red;">required</code></label>
                                                         <div class="col-md-9 mx-auto">
-                                                            <select name="type_user_id"
-                                                                    id="type_user_id"
+                                                            <select name="type_users_id"
+                                                                    id="type_users_id"
                                                                     class="form-control select2" required>
                                                                     <option value="{{ '' }}" disabled selected>Choose</option>
-                                                                @foreach($type_user as $key => $type_user_item)
-                                                                    <option value="{{ $type_user_item->id }}" {{ $type_user_item->id == $user->detail_user->type_user_id ? 'selected' : '' }}>{{ $type_user_item->name }}</option>
+                                                                @foreach($type_users as $key => $type_user_item)
+                                                                    <option value="{{ $type_user_item->id }}" {{ $type_user_item->id == $user->detail_users->type_users_id ? 'selected' : '' }}>{{ $type_user_item->name }}</option>
                                                                 @endforeach
                                                             </select>
 
-                                                            @if($errors->has('type_user_id'))
-                                                                <p style="font-style: bold; color: red;">{{ $errors->first('type_user_id') }}</p>
+                                                            @if($errors->has('type_users_id'))
+                                                                <p style="font-style: bold; color: red;">{{ $errors->first('type_users_id') }}</p>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -137,7 +137,7 @@
                                                 </div>
 
                                                 <div class="form-actions text-right">
-                                                    <a href="{{ route('backsite.user.index') }}" style="width:120px;" class="btn bg-blue-grey text-white mr-1" onclick="return confirm('Are you sure want to close this page? , Any changes you make will not be saved.')">
+                                                    <a href="{{ route('backsite.users.index') }}" style="width:120px;" class="btn bg-blue-grey text-white mr-1" onclick="return confirm('Are you sure want to close this page? , Any changes you make will not be saved.')">
                                                         <i class="ft-x"></i> Cancel
                                                     </a>
                                                     <button type="submit" style="width:120px;" class="btn btn-cyan" onclick="return confirm('Are you sure want to save this data ?')">

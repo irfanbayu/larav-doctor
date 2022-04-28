@@ -56,7 +56,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @forelse($type_user as $key => $type_user_item)
+                                                        @forelse($type_users as $key => $type_user_item)
                                                             <tr data-entry-id="{{ $type_user_item->id }}">
                                                                 <td>{{ $type_user_item->name ?? '' }}</td>
                                                             </tr>
