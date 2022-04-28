@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Consultations extends Model
 {
     // use HasFactory;
+    use SoftDeletes;
 
     //declare table
     public $table = 'consultations';
