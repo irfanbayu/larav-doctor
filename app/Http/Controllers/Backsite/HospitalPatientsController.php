@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 // use everything here
-// use Gate;
+use Gate;
 use Auth;
 
 // use model here

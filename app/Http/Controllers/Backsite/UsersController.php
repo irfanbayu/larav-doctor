@@ -17,8 +17,9 @@ use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\StoreUsersRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UpdateUsersRequest;
+
 // use everything here
-// use Gate;
+use Gate;
 use Auth;
 
 // use model here
@@ -32,7 +33,7 @@ use App\Models\MasterData\TypeUsers;
 
 class UsersController extends Controller
 {
-     /**
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -49,6 +50,8 @@ class UsersController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $users = User::orderBy('created_at', 'desc')->get();
         $type_users = TypeUsers::orderBy('name', 'asc')->get();
         $roles = Roles::all()->pluck('title', 'id');
@@ -104,6 +107,8 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
+        abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $user->load('roles');
 
         return view('pages.backsite.management-access.user.show', compact('user'));
@@ -117,6 +122,8 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+        abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $roles = Roles::all()->pluck('title', 'id');
         $type_users = TypeUsers::orderBy('name', 'asc')->get();
         $user->load('roles');
@@ -159,6 +166,8 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
+        abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $user->forceDelete();
 
         alert()->success('Success Message', 'Successfully deleted user');

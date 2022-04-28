@@ -11,7 +11,7 @@ use App\Http\Requests\Consultation\StoreConsultationsRequest;
 use App\Http\Requests\Consultation\UpdateConsultationsRequest;
 
 // use everything here
-// use Gate;
+use Gate;
 use Auth;
 
 // use model here
@@ -39,7 +39,9 @@ class ConsultationsController extends Controller
      */
     public function index()
     {
-         $consultations = Consultations::orderBy('created_at', 'desc')->get();
+        abort_if(Gate::denies('consultation_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $consultations = Consultations::orderBy('created_at', 'desc')->get();
 
         return view('pages.backsite.master-data.consultation.index', compact('consultations'));
     }
@@ -80,6 +82,8 @@ class ConsultationsController extends Controller
      */
     public function show(Consultations $consultations)
     {
+        abort_if(Gate::denies('consultation_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('pages.backsite.master-data.consultation.show', compact('consultations'));
     }
 
@@ -91,6 +95,8 @@ class ConsultationsController extends Controller
      */
     public function edit(Consultations $consultations)
     {
+        abort_if(Gate::denies('consultation_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('pages.backsite.master-data.consultation.edit', compact('consultations'));
     }
 
@@ -121,6 +127,8 @@ class ConsultationsController extends Controller
      */
     public function destroy(Consultations $consultations)
     {
+        abort_if(Gate::denies('consultation_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $consultations->forceDelete();
 
         alert()->success('Success Message', 'Successfully deleted Consultation');

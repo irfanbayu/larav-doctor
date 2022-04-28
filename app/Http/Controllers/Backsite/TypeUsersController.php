@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Backsite;
 
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
+// use library here
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 
 //use everything here
-// use Gate;
+use Gate;
 // use File;
 use Auth;
 
@@ -37,6 +39,8 @@ class TypeUsersController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('type_user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $type_users = TypeUsers::all();
 
         // orderBy('created_at', 'desc')->limit(5)->get();
