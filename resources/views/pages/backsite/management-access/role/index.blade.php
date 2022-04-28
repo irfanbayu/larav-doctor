@@ -64,7 +64,7 @@
                                     <div class="card-content collapse hide">
                                         <div class="card-body card-dashboard">
 
-                                            <form class="form form-horizontal" action="{{ route('backsite.role.store') }}" method="POST" enctype="multipart/form-data">
+                                            <form class="form form-horizontal" action="{{ route('backsite.roles.store') }}" method="POST" enctype="multipart/form-data">
 
                                                 @csrf
 
@@ -137,11 +137,11 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @forelse($role as $key => $role_item)
+                                                        @forelse($roles as $key => $role_item)
                                                             <tr data-entry-id="{{ $role_item->id }}">
                                                                 <td>{{ isset($role_item->created_at) ? date("d/m/Y H:i:s",strtotime($role_item->created_at)) : '' }}</td>
                                                                 <td>{{ $role_item->title ?? '' }}</td>
-                                                                <td>{{ count($role_item->permission).' Permissions' }}</td>
+                                                                <td>{{ count($role_item->permissions).' Permissions' }}</td>
                                                                 <td class="text-center">
 
                                                                     <div class="btn-group mr-1 mb-1">
@@ -149,7 +149,7 @@
                                                                         <div class="dropdown-menu">
                                                                             @can('role_show')
                                                                                 <a href="#mymodal"
-                                                                                    data-remote="{{ route('backsite.role.show', $role_item->id) }}"
+                                                                                    data-remote="{{ route('backsite.roles.show', $role_item->id) }}"
                                                                                     data-toggle="modal"
                                                                                     data-target="#mymodal"
                                                                                     data-title="Role Detail"
@@ -158,14 +158,14 @@
                                                                                 </a>
                                                                             @endcan
                                                                             @can('role_edit')
-                                                                                <a class="dropdown-item" href="{{ route('backsite.role.edit', $role_item->id) }}">
+                                                                                <a class="dropdown-item" href="{{ route('backsite.roles.edit', $role_item->id) }}">
                                                                                     Edit
                                                                                 </a>
                                                                             @endcan
 
                                                                             @if($role_item->id > 3)
                                                                                 @can('role_delete')
-                                                                                    <form action="{{ route('backsite.role.destroy', $role_item->id) }}" method="POST" onsubmit="return confirm('Are you sure want to delete this data ?');">
+                                                                                    <form action="{{ route('backsite.roles.destroy', $role_item->id) }}" method="POST" onsubmit="return confirm('Are you sure want to delete this data ?');">
                                                                                         <input type="hidden" name="_method" value="DELETE">
                                                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                                         <input type="submit" class="dropdown-item" value="Delete">

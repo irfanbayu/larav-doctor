@@ -56,7 +56,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @forelse($permission as $key => $permission_item)
+                                                        @forelse($permissions as $key => $permission_item)
                                                             <tr data-entry-id="{{ $permission_item->id }}">
                                                                 <td>{{ $permission_item->title ?? '' }}</td>
                                                             </tr>

@@ -61,7 +61,7 @@
                                         <div class="card-text">
                                             <p>Please complete the input <code>required</code>, before you click the submit button.</p>
                                         </div>
-                                        <form class="form form-horizontal" action="{{ route("backsite.role.update", [$role->id]) }}" method="POST" enctype="multipart/form-data">
+                                        <form class="form form-horizontal" action="{{ route("backsite.roles.update", [$roles->id]) }}" method="POST" enctype="multipart/form-data">
 
                                                 @method('PUT')
                                                 @csrf
@@ -95,12 +95,12 @@
                                                                     data-bgcolor="teal" data-bgcolor-variation="lighten-3" data-text-color="black"
                                                                     multiple="multiple">
                                                                 @foreach($permission as $id => $permission_item)
-                                                                    <option value="{{ $permission_item->id }}" {{ (in_array($permission_item->id, old('permission', [])) || isset($role) && $role->permission->contains($permission_item->id)) ? 'selected' : '' }}>{{ $permission_item->title }}</option>
+                                                                    <option value="{{ $permission_item->id }}" {{ (in_array($permission_item->id, old('permissions', [])) || isset($role) && $role->permissions->contains($permission_item->id)) ? 'selected' : '' }}>{{ $permission_item->title }}</option>
                                                                 @endforeach
                                                             </select>
 
-                                                            @if($errors->has('permission'))
-                                                                <p style="font-style: bold; color: red;">{{ $errors->first('permission') }}</p>
+                                                            @if($errors->has('permissions'))
+                                                                <p style="font-style: bold; color: red;">{{ $errors->first('permissions') }}</p>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -108,7 +108,7 @@
                                                 </div>
 
                                                 <div class="form-actions text-right">
-                                                    <a href="{{ route('backsite.role.index') }}" style="width:120px;" class="btn bg-blue-grey text-white mr-1" onclick="return confirm('Are you sure want to close this page? , Any changes you make will not be saved.')">
+                                                    <a href="{{ route('backsite.roles.index') }}" style="width:120px;" class="btn bg-blue-grey text-white mr-1" onclick="return confirm('Are you sure want to close this page? , Any changes you make will not be saved.')">
                                                         <i class="ft-x"></i> Cancel
                                                     </a>
                                                     <button type="submit" style="width:120px;" class="btn btn-cyan" onclick="return confirm('Are you sure want to save this data ?')">

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backsite;
 
 use App\Http\Controllers\Controller;
 
-
 // use library here
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +13,7 @@ use App\Http\Requests\Role\StoreRolesRequest;
 use App\Http\Requests\Role\UpdateRolesRequest;
 
 // use everything here
-// use Gate;
+use Gate;
 use Auth;
 
 // use model here
@@ -27,7 +26,7 @@ use App\Models\ManagementAccess\RolePermissions;
 
 class RolesController extends Controller
 {
-     /**
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -44,6 +43,8 @@ class RolesController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $roles = Roles::orderBy('created_at', 'desc')->get();
 
         return view('pages.backsite.management-access.role.index', compact('roles'));
@@ -85,6 +86,8 @@ class RolesController extends Controller
      */
     public function show(Roles $roles)
     {
+        abort_if(Gate::denies('role_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $roles->load('permissions');
 
         return view('pages.backsite.management-access.role.show', compact('roles'));
@@ -98,6 +101,8 @@ class RolesController extends Controller
      */
     public function edit(Roles $roles)
     {
+        abort_if(Gate::denies('role_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $permissions = Permissions::all();
         $roles->load('permissions');
 
@@ -128,6 +133,8 @@ class RolesController extends Controller
      */
     public function destroy(Roles $roles)
     {
+        abort_if(Gate::denies('role_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $roles->forceDelete();
 
         alert()->success('Success Message','Successfully deleted role');

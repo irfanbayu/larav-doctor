@@ -22,7 +22,7 @@ use App\Models\ManagementAccess\RoleUsers;
 
 class PermissionsController extends Controller
 {
-     /**
+    /**
      * Create a new controller instance.
      *
      * @return void
