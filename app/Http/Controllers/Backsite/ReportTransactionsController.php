@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Backsite;
 
+use App\Http\Controllers\Controller;
+
 // use library here
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,7 +46,7 @@ class ReportTransactionsController extends Controller
         // you must add validation with condition session id user by type user doctors & patients
         abort_if(Gate::denies('transaction_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $type_user_condition = Auth::user()->detail_user->type_user_id;
+        $type_user_condition = Auth::user()->detail_users->type_users_id;
 
         if($type_user_condition == 1){
             // for admin
