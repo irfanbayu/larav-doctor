@@ -83,10 +83,16 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Operational\Appointments', 'user_id'); //users_id
     }
 
-     public function detail_users()
+    public function detail_user()
     {
         //2 parameter (path model, field foreign key)
         return $this->hasOne('App\Models\ManagementAccess\DetailUsers', 'user_id');
+    }
+
+    // Alias for backward compatibility
+    public function detail_users()
+    {
+        return $this->detail_user();
     }
 
     public function roles_user()

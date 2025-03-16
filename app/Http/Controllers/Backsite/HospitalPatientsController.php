@@ -42,9 +42,10 @@ class HospitalPatientsController extends Controller
     public function index()
     {
         //for table grid
-        $hospital_patient = User::whereHas('detail_users', function (Builder $query){
+        $hospital_patients = User::whereHas('detail_user', function($query) {
             $query->where('type_users_id', 3); //only load user type patient or id 3 in type user table
         })->orderBy('created_at', 'desc')->get();
+
         return view('pages.backsite.operational.hospital-patient.index', compact('hospital_patients'));
     }
 
@@ -75,9 +76,9 @@ class HospitalPatientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $hospital_patient)
     {
-        //
+        return view('pages.backsite.operational.hospital-patient.show', compact('hospital_patient'));
     }
 
     /**
