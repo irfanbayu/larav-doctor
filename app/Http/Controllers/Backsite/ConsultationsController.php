@@ -82,11 +82,13 @@ class ConsultationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Consultations $consultations)
+    public function show($id)
     {
         abort_if(Gate::denies('consultation_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('pages.backsite.master-data.consultation.show', compact('consultations'));
+        $consultation = Consultations::findOrFail($id);
+
+        return view('pages.backsite.master-data.consultation.show', compact('consultation'));
     }
 
     /**
@@ -95,12 +97,13 @@ class ConsultationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Consultations $consultations)
-    {
-        abort_if(Gate::denies('consultation_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        public function edit(Consultations $consultation)
+        {
+            abort_if(Gate::denies('consultation_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('pages.backsite.master-data.consultation.edit', compact('consultations'));
-    }
+            return view('pages.backsite.master-data.consultation.edit', compact('consultation'));
+        }
+
 
     /**
      * Update the specified resource in storage.
@@ -109,13 +112,13 @@ class ConsultationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateConsultationsRequest $request, Consultations $consultations)
+    public function update(UpdateConsultationsRequest $request, Consultations $consultation)
     {
         // get all request from frontsite
         $data = $request->all();
 
         // update to database
-        $consultations->update($data);
+        $consultation->update($data);
 
         alert()->success('Success Message', 'Successfully updated Consultation');
         return redirect()->route('backsite.consultations.index');
@@ -127,11 +130,11 @@ class ConsultationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Consultations $consultations)
+    public function destroy(Consultations $consultation)
     {
         abort_if(Gate::denies('consultation_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $consultations->forceDelete();
+        $consultation->forceDelete();
 
         alert()->success('Success Message', 'Successfully deleted Consultation');
         return back();

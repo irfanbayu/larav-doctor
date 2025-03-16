@@ -31,8 +31,8 @@
                     <div class="row breadcrumbs-top d-inline-block">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item">Dashboard</li>
-                                <li class="breadcrumb-item">Consultation</li>
+                                <li class="breadcrumb-item"><a href="{{ route('backsite.dashboard.index') }}">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('backsite.consultations.index') }}">Consultation</a></li>
                                 <li class="breadcrumb-item active">Edit</li>
                             </ol>
                         </div>
@@ -61,37 +61,36 @@
                                         <div class="card-text">
                                             <p>Please complete the input <code>required</code>, before you click the submit button.</p>
                                         </div>
-                                        <form class="form form-horizontal" action="{{ route("backsite.consultations.update", [$consultations->id]) }}" method="POST" enctype="multipart/form-data">
+                                        <form class="form form-horizontal" action="{{ route('backsite.consultations.update', $consultation->id) }}" method="POST" enctype="multipart/form-data">
 
-                                                @method('PUT')
-                                                @csrf
+                                            @method('PUT')
+                                            @csrf
 
-                                                <div class="form-body">
+                                            <div class="form-body">
+                                                <h4 class="form-section"><i class="fa fa-edit"></i> Form Consultation</h4>
 
-                                                    <h4 class="form-section"><i class="fa fa-edit"></i> Form Specialist</h4>
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="name">Name <code style="color:red;">required</code></label>
+                                                    <div class="col-md-9 mx-auto">
+                                                        <input type="text" id="name" name="name" class="form-control" placeholder="example sakit lambung or jantung sesak" value="{{ old('name', $consultation->name) }}" autocomplete="off" required>
 
-                                                    <div class="form-group row">
-                                                        <label class="col-md-3 label-control" for="name">Name <code style="color:red;">required</code></label>
-                                                        <div class="col-md-9 mx-auto">
-                                                            <input type="text" id="name" name="name" class="form-control" placeholder="example sakit lambung or jantung sesak" value="{{ old('name', isset($consultation) ? $consultation->name : '') }}" autocomplete="off" required>
-
-                                                            @if($errors->has('name'))
-                                                                <p style="font-style: bold; color: red;">{{ $errors->first('name') }}</p>
-                                                            @endif
-                                                        </div>
+                                                        @if($errors->has('name'))
+                                                            <p style="font-style: bold; color: red;">{{ $errors->first('name') }}</p>
+                                                        @endif
                                                     </div>
-
                                                 </div>
 
-                                                <div class="form-actions text-right">
-                                                    <a href="{{ route('backsite.consultation.index') }}" style="width:120px;" class="btn bg-blue-grey text-white mr-1" onclick="return confirm('Are you sure want to close this page? , Any changes you make will not be saved.')">
-                                                        <i class="ft-x"></i> Cancel
-                                                    </a>
-                                                    <button type="submit" style="width:120px;" class="btn btn-cyan" onclick="return confirm('Are you sure want to save this data ?')">
-                                                        <i class="la la-check-square-o"></i> Submit
-                                                    </button>
-                                                </div>
-                                            </form>
+                                            </div>
+
+                                            <div class="form-actions text-right">
+                                                <a href="{{ route('backsite.consultations.index') }}" style="width:120px;" class="btn bg-blue-grey text-white mr-1" onclick="return confirm('Are you sure want to close this page? , Any changes you make will not be saved.')">
+                                                    <i class="ft-x"></i> Cancel
+                                                </a>
+                                                <button type="submit" style="width:120px;" class="btn btn-cyan" onclick="return confirm('Are you sure want to save this data ?')">
+                                                    <i class="la la-check-square-o"></i> Submit
+                                                </button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

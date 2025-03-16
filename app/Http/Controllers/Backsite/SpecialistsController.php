@@ -90,11 +90,11 @@ class SpecialistsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Specialists $specialists)
+    public function show(Specialists $specialist)
     {
         abort_if(Gate::denies('specialist_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('pages.backsite.master-data.specialist.show', compact('specialists'));
+        return view('pages.backsite.master-data.specialist.show', compact('specialist'));
     }
 
     /**
@@ -103,11 +103,11 @@ class SpecialistsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Specialist $specialists)
+    public function edit(Specialists $specialist)
     {
         abort_if(Gate::denies('specialist_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('pages.backsite.master-data.specialist.edit', compact('specialists'));
+        return view('pages.backsite.master-data.specialist.edit', compact('specialist'));
     }
 
     /**
@@ -117,7 +117,7 @@ class SpecialistsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSpecialistsRequest $request, Specialists $specialists)
+    public function update(UpdateSpecialistsRequest $request, Specialists $specialist)
     {
         // get all request from frontsite
         $data = $request->all();
@@ -126,7 +126,7 @@ class SpecialistsController extends Controller
         $data['price'] = str_replace('IDR ', '', $data['price']);
 
         // update to database
-        $specialists->update($data);
+        $specialist->update($data);
 
         alert()->success('Success Message', 'Data has been updated!');
         return redirect()->route('backsite.specialists.index');
@@ -138,11 +138,11 @@ class SpecialistsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Specialists $specialists)
+    public function destroy(Specialists $specialist)
     {
         abort_if(Gate::denies('specialist_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $specialists->forceDelete();
+        $specialist->forceDelete();
 
         alert()->success('Success Message', 'Data has been deleted!');
         return back();

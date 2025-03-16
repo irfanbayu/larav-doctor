@@ -118,7 +118,6 @@
                                             <ul class="list-inline mb-0">
                                                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                                <!-- <li><a data-action="close"><i class="ft-x"></i></a></li> -->
                                             </ul>
                                         </div>
                                     </div>
@@ -127,7 +126,7 @@
                                         <div class="card-body card-dashboard">
 
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-bordered text-inputs-searching default-table">
+                                                <table class="table table-striped table-bordered zero-configuration">
                                                     <thead>
                                                         <tr>
                                                             <th>Date</th>
@@ -204,7 +203,16 @@
 
 @endsection
 
+@push('after-style')
+    <link rel="stylesheet" href="{{ asset('assets/backsite/third-party/DataTables/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backsite/third-party/DataTables/responsive.bootstrap4.css') }}">
+@endpush
+
 @push('after-script')
+    <script src="{{ asset('assets/backsite/third-party/DataTables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/backsite/third-party/DataTables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/backsite/third-party/DataTables/dataTables.responsive.min.js') }}"></script>
+
     <script>
         jQuery(document).ready(function($){
             $('#mymodal').on('show.bs.modal', function(e){
@@ -228,14 +236,12 @@
             })
         });
 
-        $('.default-table').DataTable( {
-            "order": [],
-            "paging": true,
-            "lengthMenu": [ [5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"] ],
-            "pageLength": 10
+        $('#mymodal').on('hidden.bs.modal', function () {
+            $(this).find('.modal-body').html('');
         });
     </script>
 
+    {{-- Modal --}}
     <div class="modal fade" id="mymodal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -246,7 +252,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <i class="fa fa-spinner fa spin"></i>
                 </div>
             </div>
         </div>

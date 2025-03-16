@@ -10,7 +10,10 @@
         <link rel="apple-touch-icon" href="{{ asset("/asset/frontsite/app-assets/images/ico/apple-icon-120.png") }}">
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset("/asset/frontsite/app-assets/images/ico/favicon.ico") }}">
         <link href="{{ url("https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700") }}" rel="stylesheet">
-
+        <!-- Include Fancybox CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
+        <!-- Include Fancybox JS -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
         @stack('before-styles')
 
             @include('includes.backsite.style')
