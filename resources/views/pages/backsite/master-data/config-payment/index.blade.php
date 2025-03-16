@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 {{-- set title --}}
-@section('title', 'Edit - Config Payment')
+@section('title', 'Config Payment')
 
 @section('content')
+
 <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>
@@ -27,89 +28,96 @@
             {{-- breadcumb --}}
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
-                    <h3 class="content-header-title mb-0 d-inline-block">Edit Config Payment</h3>
+                    <h3 class="content-header-title mb-0 d-inline-block">Config Payment</h3>
                     <div class="row breadcrumbs-top d-inline-block">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item">Dashboard</li>
-                                <li class="breadcrumb-item">Config Payment</li>
-                                <li class="breadcrumb-item active">Edit</li>
+                                <li class="breadcrumb-item"><a href="{{ route('backsite.dashboard.index') }}">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Config Payment</li>
                             </ol>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {{-- forms --}}
-            <div class="content-body"><!-- Basic form layout section start -->
-                <section id="horizontal-form-layouts">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title" id="horz-layout-basic">Form Input</h4>
-                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                                    <div class="heading-elements">
-                                        <ul class="list-inline mb-0">
-                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="card-content collpase show">
-                                    <div class="card-body">
-                                        <div class="card-text">
-                                            <p>Please complete the input <code>required</code>, before you click the submit button.</p>
+            {{-- table card --}}
+            @can('config_payment_table')
+                <div class="content-body">
+                    <section id="table-home">
+                        <!-- Zero configuration table -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Config Payment List</h4>
+                                        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                        <div class="heading-elements">
+                                            <ul class="list-inline mb-0">
+                                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                                <!-- <li><a data-action="close"><i class="ft-x"></i></a></li> -->
+                                            </ul>
                                         </div>
-                                        <form class="form form-horizontal" action="{{ route("backsite.config_payments.update", [$config_payments->id]) }}" method="POST" enctype="multipart/form-data">
+                                    </div>
 
-                                                @method('PUT')
-                                                @csrf
+                                    <div class="card-content collapse show">
+                                        <div class="card-body card-dashboard">
 
-                                                <div class="form-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered text-inputs-searching default-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Fee</th>
+                                                            <th>Vat</th>
+                                                            <th style="text-align:center; width:150px;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @forelse($config_payment as $key => $config_payment_item)
+                                                            <tr data-entry-id="{{ $config_payment_item->id }}">
+                                                                <td>{{ isset($config_payment_item->created_at) ? date("d/m/Y H:i:s",strtotime($config_payment_item->created_at)) : '' }}</td>
+                                                                <td>{{ 'IDR '.number_format($config_payment_item->fee) ?? '' }}</td>
+                                                                <td>{{ number_format($config_payment_item->vat).'%' ?? '' }}</td>
+                                                                <td class="text-center">
 
-                                                    <h4 class="form-section"><i class="fa fa-edit"></i> Form Config Payment</h4>
+                                                                    <div class="btn-group mr-1 mb-1">
+                                                                        <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
+                                                                        <div class="dropdown-menu">
 
-                                                    <div class="form-group row">
-                                                        <label class="col-md-3 label-control" for="fee">Fee <code style="color:red;">required</code></label>
-                                                        <div class="col-md-9 mx-auto">
-                                                            <input type="text" id="fee" name="fee" class="form-control" placeholder="example fee 10000" value="{{ old('fee', isset($config_payment) ? $config_payment->fee : '') }}" autocomplete="off" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': 0, 'prefix': 'IDR ', 'placeholder': '0'" required>
+                                                                            @can('config_payment_edit')
+                                                                                <a class="dropdown-item" href="{{ route('backsite.config_payments.edit', $config_payment_item->id) }}">
+                                                                                    Edit
+                                                                                </a>
+                                                                            @endcan
 
-                                                            @if($errors->has('fee'))
-                                                                <p style="font-style: bold; color: red;">{{ $errors->first('fee') }}</p>
-                                                            @endif
-                                                        </div>
-                                                    </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- not found --}}
+                                                        @endforelse
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Fee</th>
+                                                            <th>Vat</th>
+                                                            <th style="text-align:center; width:150px;">Action</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
 
-                                                    <div class="form-group row">
-                                                        <label class="col-md-3 label-control" for="vat">Vat <code style="color:red;">required</code></label>
-                                                        <div class="col-md-9 mx-auto">
-                                                            <input type="text" id="vat" name="vat" class="form-control" placeholder="example vat 10000" value="{{ old('vat', isset($config_payment) ? $config_payment->vat : '') }}" autocomplete="off" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': 0, 'prefix': '', 'placeholder': '0'" required>
-
-                                                            @if($errors->has('vat'))
-                                                                <p style="font-style: bold; color: red;">{{ $errors->first('vat') }}</p>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="form-actions text-right">
-                                                    <a href="{{ route('backsite.config_payments.index') }}" style="width:120px;" class="btn bg-blue-grey text-white mr-1" onclick="return confirm('Are you sure want to close this page? , Any changes you make will not be saved.')">
-                                                        <i class="ft-x"></i> Cancel
-                                                    </a>
-                                                    <button type="submit" style="width:120px;" class="btn btn-cyan" onclick="return confirm('Are you sure want to save this data ?')">
-                                                        <i class="la la-check-square-o"></i> Submit
-                                                    </button>
-                                                </div>
-                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-            </div>
+                    </section>
+                </div>
+            @endcan
 
         </div>
     </div>
@@ -117,18 +125,13 @@
 
 @endsection
 
-
 @push('after-script')
-
-    {{-- inputmask --}}
-    <script src="{{ asset('/assets/backsite/third-party/inputmask/dist/jquery.inputmask.js') }}"></script>
-    <script src="{{ asset('/assets/backsite/third-party/inputmask/dist/inputmask.js') }}"></script>
-    <script src="{{ asset('/assets/backsite/third-party/inputmask/dist/bindings/inputmask.binding.js') }}"></script>
-
     <script>
-        $(function() {
-            $(":input").inputmask();
+        $('.default-table').DataTable( {
+            "order": [],
+            "paging": true,
+            "lengthMenu": [ [5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"] ],
+            "pageLength": 10
         });
     </script>
-
 @endpush

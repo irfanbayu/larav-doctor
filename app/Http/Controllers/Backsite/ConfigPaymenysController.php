@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 // use library here
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
 
 // request
 use App\Http\Requests\ConfigPayment\UpdateConfigPaymentsRequest;
@@ -22,7 +23,6 @@ use App\Models\MasterData\ConfigPayments;
 
 class ConfigPaymenysController extends Controller
 {
-
     /**
      * Create a new controller instance.
      *
@@ -42,9 +42,9 @@ class ConfigPaymenysController extends Controller
     {
         abort_if(Gate::denies('config_payment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $config_payments = ConfigPayments::all();
+        $config_payment = ConfigPayments::all();
 
-        return view('pages.backsite.master-data.config-payment.index', compact('config_payments'));
+        return view('pages.backsite.master-data.config-payment.index', compact('config_payment'));
     }
 
     /**
@@ -77,7 +77,6 @@ class ConfigPaymenysController extends Controller
     public function show($id)
     {
         return abort(404);
-
     }
 
     /**
@@ -86,11 +85,11 @@ class ConfigPaymenysController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ConfigPayments $config_payments)
+    public function edit(ConfigPayments $config_payment)
     {
         abort_if(Gate::denies('config_payment_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('pages.backsite.master-data.config-payment.edit', compact('config_payments'));
+        return view('pages.backsite.master-data.config-payment.edit', compact('config_payment'));
     }
 
     /**
@@ -100,18 +99,18 @@ class ConfigPaymenysController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateConfigPaymentsRequest $request, ConfigPayments $config_payments)
+    public function update(UpdateConfigPaymentsRequest $request, ConfigPayments $config_payment)
     {
         // get all request from frontsite
         $data = $request->all();
 
-         // re format before push to table
+        // re format before push to table
         $data['fee'] = str_replace(',', '', $data['fee']);
         $data['fee'] = str_replace('IDR ', '', $data['fee']);
         $data['vat'] = str_replace(',', '', $data['vat']);
 
         // update to database
-        $config_payments->update($data);
+        $config_payment->update($data);
 
         alert()->success('Success Message', 'Successfully updated config payment');
         return redirect()->route('backsite.config_payments.index');
@@ -125,6 +124,6 @@ class ConfigPaymenysController extends Controller
      */
     public function destroy($id)
     {
-    return abort(404);
+        return abort(404);
     }
 }

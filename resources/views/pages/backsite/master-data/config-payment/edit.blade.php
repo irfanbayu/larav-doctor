@@ -61,7 +61,7 @@
                                         <div class="card-text">
                                             <p>Please complete the input <code>required</code>, before you click the submit button.</p>
                                         </div>
-                                        <form class="form form-horizontal" action="{{ route("backsite.config_payments.update", [$config_payments->id]) }}" method="POST" enctype="multipart/form-data">
+                                        <form class="form form-horizontal" action="{{ route('backsite.config_payments.update', $config_payment->id) }}" method="POST" enctype="multipart/form-data">
 
                                                 @method('PUT')
                                                 @csrf

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\ConfigPayment;
 
-use App\Models\MasterData\ConfigPayment;
+use App\Models\MasterData\ConfigPayments;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
